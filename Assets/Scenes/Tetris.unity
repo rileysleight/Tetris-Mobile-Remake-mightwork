@@ -658,7 +658,8 @@ MonoBehaviour:
     tile: {fileID: 11400000, guid: a312283881f8c8241a1f23e040177200, type: 2}
   spawnPosition: {x: -1, y: 8, z: 0}
   boardSize: {x: 10, y: 20}
-  pointText1: {fileID: 0}
+  playerPoints: 0
+  pointText: {fileID: 400691066}
 --- !u!156049354 &337932320
 Grid:
   m_ObjectHideFlags: 0

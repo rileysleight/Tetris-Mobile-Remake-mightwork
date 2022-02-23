@@ -13,7 +13,8 @@ public class Board : MonoBehaviour
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10, 20);
     //
-
+    public int playerPoints;
+    public Text pointText;
 
 
 
@@ -31,6 +32,7 @@ public class Board : MonoBehaviour
         this.tilemap = GetComponentInChildren<Tilemap>();
         this.activePiece = GetComponentInChildren<Piece>();
         //
+        playerPoints = -1;
 
         for (int i = 0; i < this.tetrominoes.Length; i++)
         {
@@ -45,7 +47,9 @@ public class Board : MonoBehaviour
 
     private void Update()
     {
-        pointText = pointText1;
+        //
+        Debug.Log(playerPoints);
+        pointText.text = playerPoints.ToString("0");
     }
 
     public void SpawnPiece()
@@ -58,6 +62,8 @@ public class Board : MonoBehaviour
         if(IsValidPosition(this.activePiece, this.spawnPosition))
         {
             Set(this.activePiece);
+            //
+            playerPoints++;
         }
         else
         {
@@ -73,7 +79,6 @@ public class Board : MonoBehaviour
         {
             Vector3Int tilePosition = piece.cells[i] + piece.position;
             this.tilemap.SetTile(tilePosition, piece.data.tile);
-            //
             
 
         }
@@ -120,6 +125,7 @@ public class Board : MonoBehaviour
             {
                 LineClear(row);
                 //
+                playerPoints = playerPoints + 100;
                 
             }
             else

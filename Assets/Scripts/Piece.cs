@@ -9,6 +9,14 @@ public class Piece : MonoBehaviour
 	public Vector3Int[] cells { get; private set; }
 	public Vector3Int position { get; private set; }
 	public int rotationIndex { get; private set; }
+	//
+	private Vector2 startPos;
+	public int pixelDistToDetect = 200;
+	//public int pixelDistForSwipe = 1000;
+	private bool fingerDown;
+	public int playerPoints;
+
+	
 
 	public float stepDelay = 1f;
 	public float lockDelay = 0.5f;
@@ -42,6 +50,47 @@ public class Piece : MonoBehaviour
 
 		this.lockTime += Time.deltaTime;
 
+//---
+		if(fingerDown == false && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+		{
+			startPos = Input.touches[0].position;
+			fingerDown = true;
+		}
+		if(fingerDown && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Ended)
+		{
+			fingerDown = false;
+		}
+
+		if (fingerDown)
+		{
+			if(Input.touches[0].position.y >= startPos.y + pixelDistToDetect)
+			{
+				fingerDown = false;
+				Debug.Log("Swipe Up");
+				Rotate(-1);	
+			}
+			else if(Input.touches[0].position.x <= startPos.x - pixelDistToDetect)
+			{
+				fingerDown = false;
+				Debug.Log("Swipe Left");
+				Move(Vector2Int.left);
+			}
+			else if(Input.touches[0].position.x >= startPos.x + pixelDistToDetect)
+			{
+				fingerDown = false;
+				Debug.Log("Swipe Right");
+				Move(Vector2Int.right);
+			}
+			else if(Input.touches[0].position.y <= startPos.y - pixelDistToDetect)
+			{
+				fingerDown = false;
+				Debug.Log("Swipe Down");
+				Move(Vector2Int.down);
+			}
+			
+		}
+//---
+
 		if(Input.GetKeyDown(KeyCode.W))
 		{
 			Rotate(-1);		
@@ -51,6 +100,9 @@ public class Piece : MonoBehaviour
 		{
 			Move(Vector2Int.left);
 		}
+		//-----
+        
+		//-----
 		else if(Input.GetKeyDown(KeyCode.D))
 		{
 			Move(Vector2Int.right);

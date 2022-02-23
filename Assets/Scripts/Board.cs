@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Board : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class Board : MonoBehaviour
     public TetrominoData[] tetrominoes;
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10, 20);
+    //
+
+
+
 
     public RectInt Bounds
     {
@@ -25,7 +30,8 @@ public class Board : MonoBehaviour
     {
         this.tilemap = GetComponentInChildren<Tilemap>();
         this.activePiece = GetComponentInChildren<Piece>();
-        
+        //
+
         for (int i = 0; i < this.tetrominoes.Length; i++)
         {
             this.tetrominoes[i].Initialize();
@@ -35,6 +41,11 @@ public class Board : MonoBehaviour
     private void Start()
     {
         SpawnPiece();
+    }
+
+    private void Update()
+    {
+        pointText = pointText1;
     }
 
     public void SpawnPiece()
@@ -62,6 +73,9 @@ public class Board : MonoBehaviour
         {
             Vector3Int tilePosition = piece.cells[i] + piece.position;
             this.tilemap.SetTile(tilePosition, piece.data.tile);
+            //
+            
+
         }
     }
 
@@ -105,6 +119,8 @@ public class Board : MonoBehaviour
             if (IsLineFull(row))
             {
                 LineClear(row);
+                //
+                
             }
             else
             {

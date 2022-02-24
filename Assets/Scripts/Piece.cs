@@ -14,7 +14,6 @@ public class Piece : MonoBehaviour
 	public int pixelDistToDetect = 200;
 	//public int pixelDistForSwipe = 1000;
 	private bool fingerDown;
-	public int playerPoints;
 
 	
 
